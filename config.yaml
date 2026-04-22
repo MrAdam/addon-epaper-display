@@ -1,6 +1,6 @@
 name: E-Paper Display
 description: Serves e-paper optimised dashboard screenshots over HTTP
-version: 0.1.0
+version: 0.2.0
 slug: epaper_display
 init: false
 arch:
@@ -11,18 +11,20 @@ ports:
 ports_description:
   3412/tcp: Screenshot HTTP endpoint
 options:
-  url: "http://homeassistant.local:8123/lovelace/0"
-  token: ""
+  url: http://homeassistant.local:8123/lovelace/0
+  token: ''
   direct: false
-  cron: "*/5 * * * *"
+  cron: '*/5 * * * *'
   width: 800
   height: 480
-  dithering: "floyd-steinberg"
+  dithering: floyd-steinberg
   normalize: true
   gamma_correction: true
   hide_sidebar: true
-  zoom: 1.0
-  chromium_flags: "--hide-scrollbars --disable-notifications --disable-extensions --disable-sync --disable-background-timer-throttling"
+  zoom: 1
+  chromium_flags: >-
+    --hide-scrollbars --disable-notifications --disable-extensions
+    --disable-sync --disable-background-timer-throttling
 schema:
   url: url
   token: password
