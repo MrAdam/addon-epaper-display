@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import datetime
 import json
 import logging
 import threading
@@ -7,6 +8,8 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from io import BytesIO
 from pathlib import Path
 from urllib.parse import urlparse
+
+from croniter import croniter
 
 from PIL import Image
 from playwright.sync_api import sync_playwright
@@ -79,7 +82,12 @@ def refresh_loop() -> None:
             log.info("Screenshot updated (%d bytes)", len(data))
         except Exception:
             log.exception("Screenshot failed")
-        time.sleep(max(30, options.get("refresh_interval", 300)))
+
+        cron_expr = options.get("cron", "*/5 * * * *")
+        next_run = croniter(cron_expr, datetime.datetime.now()).get_next(datetime.datetime)
+        sleep_secs = (next_run - datetime.datetime.now()).total_seconds()
+        log.info("Next capture at %s", next_run.strftime("%H:%M:%S"))
+        time.sleep(max(0, sleep_secs))
 
 
 class Handler(BaseHTTPRequestHandler):
