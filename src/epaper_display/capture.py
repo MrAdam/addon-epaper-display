@@ -1,6 +1,5 @@
 import json
 import time
-from urllib.parse import urlparse
 
 from playwright.sync_api import Page, sync_playwright
 
@@ -61,10 +60,6 @@ def take_screenshot(
         )
         context = browser.new_context(viewport={"width": width, "height": height})
 
-        parsed = urlparse(url)
-        hass_url = f"{parsed.scheme}://{parsed.netloc}"
-        client_id = f"{hass_url}/"
-
         init_items = {}
         if token:
             init_items["hassTokens"] = json.dumps({
@@ -73,8 +68,6 @@ def take_screenshot(
                 "expires_in": 1800,
                 "refresh_token": "",
                 "expires": time.time() + 365 * 24 * 3600,
-                "hassUrl": hass_url,
-                "clientId": client_id,
             })
         if hide_sidebar:
             init_items["dockedSidebar"] = "always_hidden"
