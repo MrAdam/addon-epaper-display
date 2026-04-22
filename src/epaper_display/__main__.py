@@ -7,7 +7,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from croniter import croniter
 
 from .capture import take_screenshot
-from .config import load_options
+from .config import get_supervisor_timezone, load_options
 from .image import process_image
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -17,6 +17,7 @@ PORT = 3412
 
 _lock = threading.Lock()
 _screenshot: bytes | None = None
+_timezone: str | None = None
 
 
 def _capture(options: dict) -> bytes:
@@ -29,6 +30,7 @@ def _capture(options: dict) -> bytes:
         options.get("chromium_flags", ""),
         options.get("hide_sidebar", True),
         options.get("hide_toolbar", False),
+        timezone_id=_timezone,
     )
     return process_image(raw, options)
 
@@ -92,6 +94,11 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
+    _timezone = get_supervisor_timezone()
+    if _timezone:
+        log.info("Using HA supervisor timezone: %s", _timezone)
+    else:
+        log.info("No supervisor timezone found, using container default")
     threading.Thread(target=refresh_loop, daemon=True).start()
     log.info("Listening on port %d", PORT)
     HTTPServer(("0.0.0.0", PORT), Handler).serve_forever()

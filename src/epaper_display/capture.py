@@ -102,6 +102,7 @@ def take_screenshot(
     chromium_flags: str = "",
     hide_sidebar: bool = True,
     hide_toolbar: bool = False,
+    timezone_id: str | None = None,
 ) -> bytes:
     extra_args = chromium_flags.split() if chromium_flags else []
     with sync_playwright() as p:
@@ -110,7 +111,10 @@ def take_screenshot(
             args=["--no-sandbox", "--disable-dev-shm-usage"] + extra_args,
         )
         toolbar_height = round(56 * zoom) if hide_toolbar else 0
-        context = browser.new_context(viewport={"width": width, "height": height + toolbar_height})
+        context = browser.new_context(
+            viewport={"width": width, "height": height + toolbar_height},
+            timezone_id=timezone_id,
+        )
 
         parsed = urlparse(url)
         hass_url = f"{parsed.scheme}://{parsed.netloc}"
