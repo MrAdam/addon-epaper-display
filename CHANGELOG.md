@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.2](https://github.com/MrAdam/addon-epaper-display/compare/v0.5.1...v0.5.2) (2026-04-22)
+
+
+### Bug Fixes
+
+* **capture:** convert expires to milliseconds for HA frontend ([980243a](https://github.com/MrAdam/addon-epaper-display/commit/980243a9b7c12c41c587e8caf5f5d0b56a6ae8ac))
+* **capture:** convert token expires to milliseconds ([b96fbd8](https://github.com/MrAdam/addon-epaper-display/commit/b96fbd8b3e33f277c0f1ae10af7c152dfb88332a))
+
 ## [0.5.1](https://github.com/MrAdam/addon-epaper-display/compare/v0.5.0...v0.5.1) (2026-04-22)
 
 
