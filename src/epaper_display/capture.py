@@ -72,7 +72,7 @@ def take_screenshot(
                 "token_type": "Bearer",
                 "expires_in": 1800,
                 "refresh_token": "",
-                "expires": 9999999999999,
+                "expires": time.time() + 365 * 24 * 3600,
                 "hassUrl": hass_url,
                 "clientId": client_id,
             })
