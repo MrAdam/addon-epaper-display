@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.3](https://github.com/MrAdam/addon-epaper-display/compare/v0.8.2...v0.8.3) (2026-04-22)
+
+
+### Bug Fixes
+
+* **config:** fall back to supervisor API when TZ env var is absent ([94bbf5e](https://github.com/MrAdam/addon-epaper-display/commit/94bbf5e577fddcebfc1fb86da864c3e0c44eec9b))
+* **config:** fall back to supervisor API when TZ env var is absent ([d5a6bf1](https://github.com/MrAdam/addon-epaper-display/commit/d5a6bf18a9e07524346f664b44979d685cfbe4fb))
+
 ## [0.8.2](https://github.com/MrAdam/addon-epaper-display/compare/v0.8.1...v0.8.2) (2026-04-22)
 
 
