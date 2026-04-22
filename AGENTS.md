@@ -70,23 +70,37 @@ Client scripts live in `examples/` and are named `{device}_{display}.py`, e.g. `
 
 ## Local testing
 
-`take_screenshot()` can be tested locally without Docker using the project's own venv:
+Build and run the add-on exactly as it runs in production using Docker:
 
-```python
-# test_capture.py — do not commit; delete after use (may contain secrets)
-import subprocess
-from src.epaper_display.capture import take_screenshot
+```bash
+# Build (uses the same base image as the real add-on)
+docker build \
+  --build-arg BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:bookworm \
+  -t epaper-display-dev .
 
-URL   = "http://10.4.0.100:8123/e-ink-dashboard/0"
-TOKEN = "<long-lived HA token>"  # Settings → Profile → Security
-
-data = take_screenshot(url=URL, token=TOKEN, width=800, height=480)
-with open("/tmp/test_capture.png", "wb") as f:
-    f.write(data)
-subprocess.run(["open", "/tmp/test_capture.png"])
+# Run — mount a local options.json so the add-on picks up your config
+docker run --rm -p 3412:3412 \
+  -v /path/to/options.json:/data/options.json \
+  epaper-display-dev
 ```
 
-Run with `uv run python test_capture.py`. The result opens automatically. Always delete the file before committing — it contains a real token.
+Minimal `options.json`:
+```json
+{
+  "url": "http://10.4.0.100:8123/e-ink-dashboard/0",
+  "token": "<long-lived HA token>",
+  "cron": "*/5 * * * *",
+  "width": 800,
+  "height": 480,
+  "direct": true
+}
+```
+
+With `direct: true` the add-on captures on every request — no need to wait for a cron tick. Once running, fetch the screenshot with:
+
+```bash
+curl http://localhost:3412/screenshot.png -o /tmp/test.png && open /tmp/test.png
+```
 
 ## Conventions
 
