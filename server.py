@@ -51,10 +51,6 @@ def process_image(raw: bytes, options: dict) -> bytes:
 
     img = img.convert("L")
 
-    rotation = int(options.get("rotation", 0))
-    if rotation:
-        img = img.rotate(-rotation, expand=True)
-
     if options.get("normalize", True):
         img = ImageOps.autocontrast(img)
 
