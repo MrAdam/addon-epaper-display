@@ -1,0 +1,14 @@
+{
+  "packages": {
+    ".": {
+      "release-type": "python",
+      "extra-files": [
+        {
+          "type": "yaml",
+          "path": "config.yaml",
+          "jsonpath": "$.version"
+        }
+      ]
+    }
+  }
+}
