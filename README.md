@@ -2,7 +2,7 @@
 
 A Home Assistant add-on that renders a dashboard screenshot and serves it as a PNG over HTTP, optimised for e-paper displays.
 
-A headless Chromium browser captures the configured dashboard URL on a cron schedule (or on every request in direct mode), converts it to greyscale, and exposes it at `GET /screenshot.png` on port 8099.
+A headless Chromium browser captures the configured dashboard URL on a cron schedule (or on every request in direct mode), applies e-ink optimised image processing, and exposes the result at `GET /screenshot.png` on port 8099.
 
 ## Installation
 
@@ -12,14 +12,27 @@ A headless Chromium browser captures the configured dashboard URL on a cron sche
 
 ## Configuration
 
+### Capture
+
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `url` | URL | — | Dashboard URL to screenshot |
 | `token` | password | — | HA long-lived access token (Settings → Profile → Security) |
-| `direct` | bool | `false` | If enabled, captures a fresh screenshot on every request instead of serving a cached one |
-| `cron` | string | `*/5 * * * *` | Capture schedule (ignored when `direct` is enabled) |
+| `direct` | bool | `false` | Capture a fresh screenshot on every request instead of serving a cached one |
+| `cron` | string | `*/5 * * * *` | Capture schedule in cron syntax (ignored when `direct` is enabled) |
 | `width` | int | `800` | Viewport width in pixels |
 | `height` | int | `480` | Viewport height in pixels |
+| `zoom` | float | `1.0` | Browser zoom level (0.25–4.0) |
+
+### Image processing
+
+All processing steps run in this order: gamma correction → greyscale → normalize → dither.
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `gamma_correction` | bool | `true` | Convert sRGB to linear light before greyscale conversion — improves tonal accuracy on e-ink |
+| `normalize` | bool | `true` | Stretch histogram to full 0–255 range — prevents washed-out grey output |
+| `dithering` | dropdown | `floyd-steinberg` | Dithering algorithm: `floyd-steinberg` (best for gradients), `ordered` (Bayer matrix, faster, better for UI elements), `none` (hard threshold) |
 
 ## Usage
 
@@ -31,13 +44,13 @@ http://<ha-host>:8099/screenshot.png
 
 ### Raspberry Pi
 
-The companion script at [`dashboard.py`](https://github.com/MrAdam/addon-epaper-display) fetches the screenshot and pushes it to a Waveshare 7.5" e-paper display:
+The companion script fetches the screenshot and pushes it to a Waveshare 7.5" e-paper display:
 
 ```python
 HA_URL = 'http://<ha-host>:8099/screenshot.png'
 ```
 
-Run it on a schedule with a systemd timer or cron to match the add-on's refresh interval.
+Run it on a schedule with a systemd timer or cron to match the add-on's capture schedule.
 
 ## Architecture notes
 
