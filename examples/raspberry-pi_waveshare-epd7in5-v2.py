@@ -3,7 +3,7 @@
 # Display: Waveshare 7.5" e-Paper HAT V2 (epd7in5_V2) — 800×480, black/white
 #
 # Prerequisites:
-#   sudo apt install fonts-noto python3-pillow
+#   sudo apt install python3-pillow
 #   git clone https://github.com/waveshare/e-Paper /opt/e-Paper
 #
 # Run on a schedule (e.g. every 5 minutes) with cron or a systemd timer to
