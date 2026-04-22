@@ -20,6 +20,8 @@ options:
   dithering: "floyd-steinberg"
   normalize: true
   gamma_correction: true
+  zoom: 1.0
+  rotation: 0
 schema:
   url: url
   token: password
@@ -30,3 +32,5 @@ schema:
   dithering: list(floyd-steinberg|ordered|none)
   normalize: bool
   gamma_correction: bool
+  zoom: float(0.25,4.0)
+  rotation: list(0|90|180|270)

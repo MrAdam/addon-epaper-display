@@ -51,6 +51,10 @@ def process_image(raw: bytes, options: dict) -> bytes:
 
     img = img.convert("L")
 
+    rotation = int(options.get("rotation", 0))
+    if rotation:
+        img = img.rotate(-rotation, expand=True)
+
     if options.get("normalize", True):
         img = ImageOps.autocontrast(img)
 
@@ -72,7 +76,7 @@ def load_options() -> dict:
         return json.load(f)
 
 
-def take_screenshot(url: str, token: str, width: int, height: int) -> bytes:
+def take_screenshot(url: str, token: str, width: int, height: int, zoom: float = 1.0) -> bytes:
     with sync_playwright() as p:
         browser = p.chromium.launch(
             headless=True,
@@ -97,6 +101,8 @@ def take_screenshot(url: str, token: str, width: int, height: int) -> bytes:
             )
 
         page.goto(url, wait_until="load")
+        if zoom != 1.0:
+            page.evaluate(f"document.body.style.zoom = '{zoom}'")
         page.wait_for_timeout(3000)
         data = page.screenshot()
         browser.close()
@@ -123,6 +129,7 @@ def refresh_loop() -> None:
                 options.get("token", ""),
                 options.get("width", 800),
                 options.get("height", 480),
+                options.get("zoom", 1.0),
             )
             data = process_image(raw, options)
             with _lock:
@@ -153,6 +160,7 @@ class Handler(BaseHTTPRequestHandler):
                     options.get("token", ""),
                     options.get("width", 800),
                     options.get("height", 480),
+                    options.get("zoom", 1.0),
                 )
                 data = process_image(raw, options)
             except Exception:
