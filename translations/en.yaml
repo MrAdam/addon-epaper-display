@@ -35,6 +35,9 @@ configuration:
   hide_sidebar:
     name: Hide sidebar
     description: Hide the Home Assistant sidebar in the screenshot.
+  hide_toolbar:
+    name: Hide toolbar
+    description: Crop the top toolbar out of the screenshot to maximise usable display area.
   zoom:
     name: Zoom level
     description: Browser zoom factor (1.0 = 100 %). Increase to scale up UI elements.
