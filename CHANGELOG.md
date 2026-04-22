@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.1](https://github.com/MrAdam/addon-epaper-display/compare/v0.5.0...v0.5.1) (2026-04-22)
+
+
+### Bug Fixes
+
+* **capture:** drop hassUrl and clientId from hassTokens injection ([2e5e8a2](https://github.com/MrAdam/addon-epaper-display/commit/2e5e8a2df404973667e069e96707a2e2cb17290d))
+* **capture:** drop hassUrl/clientId from hassTokens to fix connection error ([5eadeb6](https://github.com/MrAdam/addon-epaper-display/commit/5eadeb663916e77eb75ae93167347bd7c4a7fb5c))
+
 ## [0.5.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.4.0...v0.5.0) (2026-04-22)
 
 
