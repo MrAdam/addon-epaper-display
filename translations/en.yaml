@@ -1,0 +1,43 @@
+configuration:
+  url:
+    name: Dashboard URL
+    description: Full URL of the Lovelace dashboard to screenshot.
+  token:
+    name: Long-lived access token
+    description: Home Assistant long-lived access token for authenticated dashboards.
+  direct:
+    name: Direct capture mode
+    description: >-
+      Skip the cron schedule and capture on every HTTP request instead.
+      Useful for on-demand fetching from the client device.
+  cron:
+    name: Capture schedule
+    description: >-
+      Cron expression controlling how often the screenshot is refreshed
+      (e.g. "*/5 * * * *" for every 5 minutes).
+  width:
+    name: Image width
+    description: Width of the screenshot in pixels.
+  height:
+    name: Image height
+    description: Height of the screenshot in pixels.
+  dithering:
+    name: Dithering algorithm
+    description: >-
+      Algorithm used to reduce the image to greyscale tones suitable for
+      e-ink displays.
+  normalize:
+    name: Normalize contrast
+    description: Stretch the greyscale histogram to use the full 0–255 range.
+  gamma_correction:
+    name: Gamma correction
+    description: Apply gamma correction before greyscale conversion to improve tonal balance.
+  hide_sidebar:
+    name: Hide sidebar
+    description: Hide the Home Assistant sidebar in the screenshot.
+  zoom:
+    name: Zoom level
+    description: Browser zoom factor (1.0 = 100 %). Increase to scale up UI elements.
+  chromium_flags:
+    name: Extra Chromium flags
+    description: Additional command-line flags passed to the headless Chromium browser.
