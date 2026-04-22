@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.2](https://github.com/MrAdam/addon-epaper-display/compare/v0.8.1...v0.8.2) (2026-04-22)
+
+
+### Bug Fixes
+
+* **config:** read timezone from TZ env var instead of supervisor HTTP API ([975f242](https://github.com/MrAdam/addon-epaper-display/commit/975f242c22248dbe4eff0db7559cff0dda572cf8))
+* **config:** read timezone from TZ env var instead of supervisor HTTP API ([82b0f8a](https://github.com/MrAdam/addon-epaper-display/commit/82b0f8a2a89c84f6e78a8794b01215f6f5858a7a))
+
 ## [0.8.1](https://github.com/MrAdam/addon-epaper-display/compare/v0.8.0...v0.8.1) (2026-04-22)
 
 
