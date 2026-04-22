@@ -7,7 +7,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from croniter import croniter
 
 from .capture import take_screenshot
-from .config import get_supervisor_timezone, load_options
+from .config import get_timezone, load_options
 from .image import process_image
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -94,11 +94,11 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    _timezone = get_supervisor_timezone()
+    _timezone = get_timezone()
     if _timezone:
-        log.info("Using HA supervisor timezone: %s", _timezone)
+        log.info("Using timezone: %s", _timezone)
     else:
-        log.info("No supervisor timezone found, using container default")
+        log.info("TZ not set, using container default")
     threading.Thread(target=refresh_loop, daemon=True).start()
     log.info("Listening on port %d", PORT)
     HTTPServer(("0.0.0.0", PORT), Handler).serve_forever()
