@@ -7,9 +7,9 @@ arch:
   - amd64
   - aarch64
 ports:
-  8099/tcp: 8099
+  3412/tcp: 3412
 ports_description:
-  8099/tcp: Screenshot HTTP endpoint
+  3412/tcp: Screenshot HTTP endpoint
 options:
   url: "http://homeassistant.local:8123/lovelace/0"
   token: ""

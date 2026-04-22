@@ -2,7 +2,7 @@
 
 A Home Assistant add-on that renders a dashboard screenshot and serves it as a PNG over HTTP, optimised for e-paper displays.
 
-A headless Chromium browser captures the configured dashboard URL on a cron schedule (or on every request in direct mode), applies e-ink optimised image processing, and exposes the result at `GET /screenshot.png` on port 8099.
+A headless Chromium browser captures the configured dashboard URL on a cron schedule (or on every request in direct mode), applies e-ink optimised image processing, and exposes the result at `GET /screenshot.png` on port 3412.
 
 ## Installation
 
@@ -44,7 +44,7 @@ All processing steps run in this order: gamma correction → greyscale → norma
 Once the add-on is running, fetch the screenshot from any HTTP client:
 
 ```
-http://<ha-host>:8099/screenshot.png
+http://<ha-host>:3412/screenshot.png
 ```
 
 ### Raspberry Pi
@@ -52,7 +52,7 @@ http://<ha-host>:8099/screenshot.png
 The companion script fetches the screenshot and pushes it to a Waveshare 7.5" e-paper display:
 
 ```python
-HA_URL = 'http://<ha-host>:8099/screenshot.png'
+HA_URL = 'http://<ha-host>:3412/screenshot.png'
 ```
 
 Run it on a schedule with a systemd timer or cron to match the add-on's capture schedule.

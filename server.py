@@ -18,7 +18,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 log = logging.getLogger(__name__)
 
 OPTIONS_FILE = Path("/data/options.json")
-PORT = 8099
+PORT = 3412
 
 # sRGB → linear gamma LUT (γ = 2.2 approximation), repeated 3× for RGB point()
 _GAMMA_LUT = [int(((i / 255.0) ** 2.2) * 255 + 0.5) for i in range(256)] * 3
