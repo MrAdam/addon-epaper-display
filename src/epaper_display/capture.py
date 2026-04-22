@@ -68,7 +68,7 @@ def take_screenshot(
                 "token_type": "Bearer",
                 "expires_in": 1800,
                 "refresh_token": "",
-                "expires": time.time() + 365 * 24 * 3600,
+                "expires": (time.time() + 365 * 24 * 3600) * 1000,
             })
         if hide_sidebar:
             init_items["dockedSidebar"] = "always_hidden"
