@@ -15,4 +15,4 @@ RUN uv run playwright install-deps chromium \
 
 COPY src/ src/
 
-CMD ["uv", "run", "python", "-m", "epaper_display"]
+CMD ["/usr/bin/with-contenv", "uv", "run", "python", "-m", "epaper_display"]
