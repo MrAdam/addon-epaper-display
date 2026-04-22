@@ -9,11 +9,9 @@
           "jsonpath": "$.version"
         },
         {
-          "type": "generic",
+          "type": "toml",
           "path": "uv.lock",
-          "patterns": [
-            "name = \"epaper-display\"\nversion = \"(\\d+\\.\\d+\\.\\d+)\""
-          ]
+          "jsonpath": "$.package[?(@.name.value=='epaper-display')].version"
         }
       ]
     }
