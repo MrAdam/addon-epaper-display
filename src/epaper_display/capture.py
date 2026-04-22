@@ -6,7 +6,6 @@ from playwright.sync_api import Page, sync_playwright
 
 
 def _wait_for_ready(page: Page) -> None:
-    # Stage 1: wait for shadow DOM chain and lovelace panel to finish loading
     try:
         page.wait_for_function(
             """() => {
@@ -26,7 +25,6 @@ def _wait_for_ready(page: Page) -> None:
     except Exception:
         pass
 
-    # Stage 2: wait for hass data (states, connection, config) to be ready
     try:
         page.wait_for_function(
             """() => {
@@ -43,7 +41,6 @@ def _wait_for_ready(page: Page) -> None:
     except Exception:
         pass
 
-    # Stage 3: wait for all loading indicators to clear, walking shadow roots
     try:
         page.wait_for_function(
             """() => {
@@ -71,7 +68,6 @@ def _wait_for_ready(page: Page) -> None:
     except Exception:
         pass
 
-    # Stage 4: dismiss toasts via shadow DOM path
     try:
         page.evaluate("""() => {
             const ha = document.querySelector('home-assistant');
@@ -83,13 +79,18 @@ def _wait_for_ready(page: Page) -> None:
     except Exception:
         pass
 
-    # Stage 5: wait for paint to settle (double rAF)
     try:
         page.evaluate(
-            "() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))"
+            "() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))",
+            timeout=2000,
         )
     except Exception:
         pass
+
+    # Catch auth failures early rather than silently serving a login/error screenshot
+    title = page.title().lower()
+    if any(kw in title for kw in ("log in", "login", "sign in", "error", "403", "404", "unable to connect")):
+        raise RuntimeError(f"Page title '{page.title()}' suggests auth failure or error — aborting capture")
 
 
 def take_screenshot(
@@ -137,7 +138,7 @@ def take_screenshot(
             context.add_init_script(sets)
 
         page = context.new_page()
-        page.goto(url, wait_until="networkidle")
+        page.goto(url, wait_until="load")
         if zoom != 1.0:
             page.evaluate(f"document.body.style.zoom = '{zoom}'")
         _wait_for_ready(page)
