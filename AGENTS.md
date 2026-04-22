@@ -68,6 +68,41 @@ docs: update README with hide_sidebar option
 
 Client scripts live in `examples/` and are named `{device}_{display}.py`, e.g. `raspberry-pi_waveshare-epd7in5-v2.py`. Each file must include a header comment stating the device, display model, resolution, and prerequisites. Scripts should fetch from `ADDON_URL` and handle `IOError` and `KeyboardInterrupt` — see the existing example as a template.
 
+## Local testing
+
+Build and run the add-on exactly as it runs in production using Docker:
+
+```bash
+# Build (uses the same base image as the real add-on)
+# On Apple Silicon add --platform linux/amd64 to both commands
+docker build \
+  --build-arg BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:bookworm \
+  -t epaper-display-dev .
+
+# Run — mount a local options.json so the add-on picks up your config
+docker run --rm -p 3412:3412 \
+  -v /path/to/options.json:/data/options.json \
+  epaper-display-dev
+```
+
+Minimal `options.json`:
+```json
+{
+  "url": "http://10.4.0.100:8123/e-ink-dashboard/0",
+  "token": "<long-lived HA token>",
+  "cron": "*/5 * * * *",
+  "width": 800,
+  "height": 480,
+  "direct": true
+}
+```
+
+With `direct: true` the add-on captures on every request — no need to wait for a cron tick. Once running, fetch the screenshot with:
+
+```bash
+curl http://localhost:3412/screenshot.png -o /tmp/test.png && open /tmp/test.png
+```
+
 ## Conventions
 
 - Always work on a feature branch — never commit directly to `main`

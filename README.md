@@ -57,6 +57,10 @@ ADDON_URL = 'http://<ha-host>:3412/screenshot.png'
 
 Run the client on a schedule with a systemd timer or cron to match the add-on's capture schedule.
 
+## Credits
+
+Thanks to [**puppet**](https://github.com/balloob/home-assistant-addons/tree/main/puppet) and [**trmnl-home-assistant**](https://github.com/usetrmnl/trmnl-home-assistant) for their open-source work, which served as inspiration for this add-on.
+
 ## Architecture notes
 
 - Supports `amd64` and `aarch64` only — Playwright does not support `armv7`

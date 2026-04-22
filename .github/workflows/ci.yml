@@ -9,6 +9,15 @@ on:
       - main
 
 jobs:
+  lock-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv lock --check
+
   build:
     runs-on: ubuntu-latest
     permissions:
