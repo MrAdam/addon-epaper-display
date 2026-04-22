@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.7.0...v0.8.0) (2026-04-22)
+
+
+### Features
+
+* **capture:** auto-detect timezone from HA supervisor ([aeeaa31](https://github.com/MrAdam/addon-epaper-display/commit/aeeaa312d657007ff0220bdb23ac40d0e3b88bad))
+* **capture:** auto-detect timezone from HA supervisor ([a9646bb](https://github.com/MrAdam/addon-epaper-display/commit/a9646bbe8f95b108db78abe7e5138857a77a360e))
+
 ## [0.7.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.6.0...v0.7.0) (2026-04-22)
 
 
