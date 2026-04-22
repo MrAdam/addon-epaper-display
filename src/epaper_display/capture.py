@@ -101,7 +101,6 @@ def take_screenshot(
     zoom: float = 1.0,
     chromium_flags: str = "",
     hide_sidebar: bool = True,
-    theme: str = "",
 ) -> bytes:
     extra_args = chromium_flags.split() if chromium_flags else []
     with sync_playwright() as p:
@@ -128,8 +127,6 @@ def take_screenshot(
             })
         if hide_sidebar:
             init_items["dockedSidebar"] = "always_hidden"
-        if theme:
-            init_items["selectedTheme"] = json.dumps({"theme": theme})
         if init_items:
             sets = "; ".join(
                 f"localStorage.setItem({json.dumps(k)}, {json.dumps(v)})"

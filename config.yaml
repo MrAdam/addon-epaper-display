@@ -21,7 +21,6 @@ options:
   normalize: true
   gamma_correction: true
   hide_sidebar: true
-  theme: ''
   zoom: 1
   chromium_flags: >-
     --hide-scrollbars --disable-notifications --disable-extensions
@@ -37,6 +36,5 @@ schema:
   normalize: bool
   gamma_correction: bool
   hide_sidebar: bool
-  theme: str
   zoom: float(0.25,4.0)
   chromium_flags: str
