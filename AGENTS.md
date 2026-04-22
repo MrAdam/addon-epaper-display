@@ -63,6 +63,10 @@ chore: regenerate uv.lock
 docs: update README with hide_sidebar option
 ```
 
+## Examples
+
+Client scripts live in `examples/` and are named `{device}_{display}.py`, e.g. `raspberry-pi_waveshare-epd7in5-v2.py`. Each file must include a header comment stating the device, display model, resolution, and prerequisites. Scripts should fetch from `ADDON_URL` and handle `IOError` and `KeyboardInterrupt` — see the existing example as a template.
+
 ## Conventions
 
 - Use `uv` for all dependency management — never `pip` directly
