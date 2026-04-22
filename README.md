@@ -47,18 +47,18 @@ Once the add-on is running, fetch the screenshot from any HTTP client:
 http://<ha-host>:3412/screenshot.png
 ```
 
-### Raspberry Pi
+### Client
 
-The companion script fetches the screenshot and pushes it to a Waveshare 7.5" e-paper display:
+Any HTTP client can fetch the screenshot and push it to a display. Example companion scripts for specific devices are in the [`examples/`](examples/) folder.
 
 ```python
-HA_URL = 'http://<ha-host>:3412/screenshot.png'
+ADDON_URL = 'http://<ha-host>:3412/screenshot.png'
 ```
 
-Run it on a schedule with a systemd timer or cron to match the add-on's capture schedule.
+Run the client on a schedule with a systemd timer or cron to match the add-on's capture schedule.
 
 ## Architecture notes
 
 - Supports `amd64` and `aarch64` only — Playwright does not support `armv7`
-- In schedule mode the last successful screenshot is always cached, so the Pi gets an instant response even if a render is in progress
-- In direct mode the Pi waits for the full render (~10–30 s depending on dashboard complexity)
+- In schedule mode the last successful screenshot is always cached, so the client gets an instant response even if a render is in progress
+- In direct mode the client waits for the full render (~10–30 s depending on dashboard complexity)
