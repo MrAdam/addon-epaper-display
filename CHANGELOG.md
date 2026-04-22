@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.5.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.4.0...v0.5.0) (2026-04-22)
+
+
+### Features
+
+* **capture:** add theme option to set HA theme per capture ([604bcd0](https://github.com/MrAdam/addon-epaper-display/commit/604bcd04a68d6a4ec93d3acaf609503b6bab2491))
+* **capture:** add theme option to set HA theme per capture ([9d807fb](https://github.com/MrAdam/addon-epaper-display/commit/9d807fb60db1e2c9634c7cd071c3d0fc73dfcd3b))
+
+
+### Bug Fixes
+
+* **capture:** correct hassTokens format to include hassUrl and clientId ([929cd9c](https://github.com/MrAdam/addon-epaper-display/commit/929cd9c5a4fa5f08f914d3a729f536b261d593bb))
+* **capture:** correct hassTokens localStorage format for HA auth ([536ef1d](https://github.com/MrAdam/addon-epaper-display/commit/536ef1d221644319d46691215a3458816607f85f))
+* **capture:** use calculated expiry instead of hardcoded far-future value ([f2ca402](https://github.com/MrAdam/addon-epaper-display/commit/f2ca402fea05b9ee767668e73736cf3b291e8620))
+
 ## [0.4.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.3.0...v0.4.0) (2026-04-22)
 
 
