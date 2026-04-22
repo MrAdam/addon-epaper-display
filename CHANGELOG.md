@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.4.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.3.0...v0.4.0) (2026-04-22)
+
+
+### Features
+
+* add translations for human-friendly option display names ([3ac2a95](https://github.com/MrAdam/addon-epaper-display/commit/3ac2a95fca425525176c2c033d2fce89bcb67655))
+* add translations for human-friendly option display names ([7a4c343](https://github.com/MrAdam/addon-epaper-display/commit/7a4c343445d5dd591f82345eb5120db89d4172a1))
+* **examples:** rewrite Pi client script with uv shebang and error screen ([7b16310](https://github.com/MrAdam/addon-epaper-display/commit/7b1631015f30ae36943d0d9efcdb6111efd5f13b))
+
+
+### Bug Fixes
+
+* **capture:** use add_init_script to set localStorage before navigation ([0983622](https://github.com/MrAdam/addon-epaper-display/commit/098362277b2cbee13c2c1b71933d484a701a1ddf))
+* **capture:** use add_init_script to set localStorage, rewrite Pi example ([21af991](https://github.com/MrAdam/addon-epaper-display/commit/21af9917e3a533faaaf5534a5a021937824dc62d))
+
+
+### Documentation
+
+* **agents:** keep translations/en.yaml in sync with config.yaml options ([b8863c1](https://github.com/MrAdam/addon-epaper-display/commit/b8863c1d0c699e72694f98976c91d96db05d7aa1))
+
 ## [0.3.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.2.0...v0.3.0) (2026-04-22)
 
 
