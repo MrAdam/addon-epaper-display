@@ -12,8 +12,11 @@ def load_options() -> dict:
 
 
 def get_supervisor_timezone() -> str | None:
+    import logging
+    log = logging.getLogger(__name__)
     token = os.environ.get("SUPERVISOR_TOKEN")
     if not token:
+        log.debug("SUPERVISOR_TOKEN not set")
         return None
     try:
         req = urllib.request.Request(
@@ -22,5 +25,6 @@ def get_supervisor_timezone() -> str | None:
         )
         with urllib.request.urlopen(req, timeout=5) as resp:
             return json.load(resp).get("time_zone")
-    except Exception:
+    except Exception as e:
+        log.warning("Failed to fetch timezone from supervisor: %s", e)
         return None
