@@ -69,6 +69,10 @@ def refresh_loop() -> None:
     global _screenshot
     while True:
         options = load_options()
+        if options.get("direct", False):
+            time.sleep(60)
+            continue
+
         try:
             log.info("Capturing %s", options["url"])
             data = take_screenshot(
@@ -96,12 +100,29 @@ class Handler(BaseHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
             return
-        with _lock:
-            data = _screenshot
-        if data is None:
-            self.send_response(503)
-            self.end_headers()
-            return
+
+        options = load_options()
+        if options.get("direct", False):
+            try:
+                data = take_screenshot(
+                    options["url"],
+                    options.get("token", ""),
+                    options.get("width", 800),
+                    options.get("height", 480),
+                )
+            except Exception:
+                log.exception("Direct screenshot failed")
+                self.send_response(500)
+                self.end_headers()
+                return
+        else:
+            with _lock:
+                data = _screenshot
+            if data is None:
+                self.send_response(503)
+                self.end_headers()
+                return
+
         self.send_response(200)
         self.send_header("Content-Type", "image/png")
         self.send_header("Content-Length", str(len(data)))
