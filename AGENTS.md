@@ -25,6 +25,7 @@ src/epaper_display/
 Other key files:
 
 - `config.yaml` — Home Assistant add-on metadata and config schema (defines the HA UI options)
+- `translations/en.yaml` — human-readable names and descriptions for every option in `config.yaml`; must be kept in sync whenever options are added, removed, or renamed
 - `build.yaml` — multi-arch Docker base images (`amd64`, `aarch64` only — Playwright does not support `armv7`)
 - `pyproject.toml` + `uv.lock` — Python dependencies; hatchling is the build backend
 
