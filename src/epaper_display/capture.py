@@ -101,6 +101,7 @@ def take_screenshot(
     zoom: float = 1.0,
     chromium_flags: str = "",
     hide_sidebar: bool = True,
+    hide_toolbar: bool = False,
 ) -> bytes:
     extra_args = chromium_flags.split() if chromium_flags else []
     with sync_playwright() as p:
@@ -108,7 +109,8 @@ def take_screenshot(
             headless=True,
             args=["--no-sandbox", "--disable-dev-shm-usage"] + extra_args,
         )
-        context = browser.new_context(viewport={"width": width, "height": height})
+        toolbar_height = round(56 * zoom) if hide_toolbar else 0
+        context = browser.new_context(viewport={"width": width, "height": height + toolbar_height})
 
         parsed = urlparse(url)
         hass_url = f"{parsed.scheme}://{parsed.netloc}"
@@ -139,7 +141,8 @@ def take_screenshot(
         if zoom != 1.0:
             page.evaluate(f"document.body.style.zoom = '{zoom}'")
         _wait_for_ready(page)
-        data = page.screenshot()
+        clip = {"x": 0, "y": toolbar_height, "width": width, "height": height} if hide_toolbar else None
+        data = page.screenshot(clip=clip)
         browser.close()
 
     return data
