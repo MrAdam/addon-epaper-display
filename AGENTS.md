@@ -69,6 +69,7 @@ Client scripts live in `examples/` and are named `{device}_{display}.py`, e.g. `
 
 ## Conventions
 
+- Always work on a feature branch — never commit directly to `main`
 - Use `uv` for all dependency management — never `pip` directly
 - Regenerate `uv.lock` after any change to `pyproject.toml`
 - Keep `--no-sandbox` and `--disable-dev-shm-usage` hardcoded in `take_screenshot` — they are required for Chromium in Docker and must not be removed
