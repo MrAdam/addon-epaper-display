@@ -20,6 +20,7 @@ options:
   dithering: "floyd-steinberg"
   normalize: true
   gamma_correction: true
+  hide_sidebar: true
   zoom: 1.0
   chromium_flags: "--hide-scrollbars --disable-notifications --disable-extensions --disable-sync --disable-background-timer-throttling"
 schema:
@@ -32,5 +33,6 @@ schema:
   dithering: list(floyd-steinberg|ordered|none)
   normalize: bool
   gamma_correction: bool
+  hide_sidebar: bool
   zoom: float(0.25,4.0)
   chromium_flags: str

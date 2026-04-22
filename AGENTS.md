@@ -40,6 +40,23 @@ Order matters: **gamma correction → greyscale → normalize → dither**
 
 All options are read fresh from `/data/options.json` on every capture. Changes take effect after the current sleep/request cycle ends — no restart needed.
 
+## Commit messages
+
+Use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+<type>(<optional scope>): <description>
+```
+
+Common types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`. Examples:
+
+```
+feat(capture): add sidebar hiding via localStorage
+fix(image): correct gamma LUT length for RGB images
+chore: regenerate uv.lock
+docs: update README with hide_sidebar option
+```
+
 ## Conventions
 
 - Use `uv` for all dependency management — never `pip` directly

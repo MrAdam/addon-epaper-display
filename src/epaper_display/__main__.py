@@ -27,6 +27,7 @@ def _capture(options: dict) -> bytes:
         options.get("height", 480),
         options.get("zoom", 1.0),
         options.get("chromium_flags", ""),
+        options.get("hide_sidebar", True),
     )
     return process_image(raw, options)
 
