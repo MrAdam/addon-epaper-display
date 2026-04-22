@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.6.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.5.2...v0.6.0) (2026-04-22)
+
+
+### Features
+
+* add add-on icon ([8e5f54a](https://github.com/MrAdam/addon-epaper-display/commit/8e5f54a547e75de24addb58dd8415df28137d5c8))
+* add add-on icon (Phosphor article, MIT) ([f91b33e](https://github.com/MrAdam/addon-epaper-display/commit/f91b33e808d68f96c15ee044613fa8b615142a4c))
+
+
+### Bug Fixes
+
+* **capture:** fix HA auth and rewrite wait logic ([714a3be](https://github.com/MrAdam/addon-epaper-display/commit/714a3bed7a11c78e9e764a7863b087fb8ca139ab))
+* **capture:** fix HA auth, wait logic, and uv.lock CI ([addc487](https://github.com/MrAdam/addon-epaper-display/commit/addc487246736dca3a8ebd47f6d5d31961e4689e))
+* **capture:** revert to wait_until=load, add auth sanity check, drop stage comments ([2aac06e](https://github.com/MrAdam/addon-epaper-display/commit/2aac06ed13f27782fdcbf3193b222a95edd4b6f2))
+
+
+### Documentation
+
+* **agents:** add local testing instructions for take_screenshot ([36efe76](https://github.com/MrAdam/addon-epaper-display/commit/36efe76838dddc96e67cd2de9ef1936cdf8aa732))
+* **agents:** note --platform linux/amd64 needed on Apple Silicon ([c58a2f7](https://github.com/MrAdam/addon-epaper-display/commit/c58a2f7d3924049e6c7d218599d971d196dbf6fd))
+* **agents:** replace local Python test with Docker-based testing instructions ([7f8bef7](https://github.com/MrAdam/addon-epaper-display/commit/7f8bef735a384b71e10e8e086fc6153a2e4e7e7b))
+
 ## [0.5.2](https://github.com/MrAdam/addon-epaper-display/compare/v0.5.1...v0.5.2) (2026-04-22)
 
 
