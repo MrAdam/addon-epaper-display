@@ -7,6 +7,13 @@
           "type": "yaml",
           "path": "config.yaml",
           "jsonpath": "$.version"
+        },
+        {
+          "type": "generic",
+          "path": "uv.lock",
+          "patterns": [
+            "name = \"epaper-display\"\nversion = \"(\\d+\\.\\d+\\.\\d+)\""
+          ]
         }
       ]
     }
