@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.8.1](https://github.com/MrAdam/addon-epaper-display/compare/v0.8.0...v0.8.1) (2026-04-22)
+
+
+### Bug Fixes
+
+* **addon:** enable homeassistant_api to allow supervisor timezone fetch ([53778e1](https://github.com/MrAdam/addon-epaper-display/commit/53778e14132e9a2e0f7d645044ec75e647299c2c))
+* **capture:** grant homeassistant_api permission for supervisor timezone fetch ([de2acc2](https://github.com/MrAdam/addon-epaper-display/commit/de2acc28a23cbf076dad153f55ded687bb23d028))
+* **config:** log supervisor timezone fetch failures for debugging ([04968dc](https://github.com/MrAdam/addon-epaper-display/commit/04968dcab954128b0b0245a596f42fd9219fbdea))
+
 ## [0.8.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.7.0...v0.8.0) (2026-04-22)
 
 
