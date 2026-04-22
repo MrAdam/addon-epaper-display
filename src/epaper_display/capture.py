@@ -1,5 +1,5 @@
+import json
 import time
-from urllib.parse import urlparse
 
 from playwright.sync_api import Page, sync_playwright
 
@@ -59,27 +59,26 @@ def take_screenshot(
             args=["--no-sandbox", "--disable-dev-shm-usage"] + extra_args,
         )
         context = browser.new_context(viewport={"width": width, "height": height})
+
+        init_items = {}
+        if token:
+            init_items["hassTokens"] = json.dumps({
+                "access_token": token,
+                "token_type": "Bearer",
+                "expires_in": 1800,
+                "refresh_token": "refresh",
+                "expires_at": time.time() + 365 * 24 * 3600,
+            })
+        if hide_sidebar:
+            init_items["dockedSidebar"] = "always_hidden"
+        if init_items:
+            sets = "; ".join(
+                f"localStorage.setItem({json.dumps(k)}, {json.dumps(v)})"
+                for k, v in init_items.items()
+            )
+            context.add_init_script(sets)
+
         page = context.new_page()
-
-        if token or hide_sidebar:
-            base_url = f"{urlparse(url).scheme}://{urlparse(url).netloc}"
-            page.goto(base_url, wait_until="load")
-            if token:
-                page.evaluate(
-                    "payload => localStorage.setItem('hassTokens', JSON.stringify(payload))",
-                    {
-                        "access_token": token,
-                        "token_type": "Bearer",
-                        "expires_in": 1800,
-                        "refresh_token": "refresh",
-                        "expires_at": time.time() + 365 * 24 * 3600,
-                    },
-                )
-            if hide_sidebar:
-                page.evaluate(
-                    "() => localStorage.setItem('dockedSidebar', 'always_hidden')"
-                )
-
         page.goto(url, wait_until="load")
         if zoom != 1.0:
             page.evaluate(f"document.body.style.zoom = '{zoom}'")
