@@ -74,6 +74,7 @@ Build and run the add-on exactly as it runs in production using Docker:
 
 ```bash
 # Build (uses the same base image as the real add-on)
+# On Apple Silicon add --platform linux/amd64 to both commands
 docker build \
   --build-arg BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:bookworm \
   -t epaper-display-dev .
