@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.5](https://github.com/MrAdam/addon-epaper-display/compare/v0.8.4...v0.8.5) (2026-04-22)
+
+
+### Bug Fixes
+
+* **capture:** wait for hui-markdown-card content before screenshot ([#33](https://github.com/MrAdam/addon-epaper-display/issues/33)) ([c795a36](https://github.com/MrAdam/addon-epaper-display/commit/c795a36946d8ef985dcedce489c32838ad448c2d))
+
 ## [0.8.4](https://github.com/MrAdam/addon-epaper-display/compare/v0.8.3...v0.8.4) (2026-04-22)
 
 

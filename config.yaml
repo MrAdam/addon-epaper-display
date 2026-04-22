@@ -1,6 +1,6 @@
 name: E-Paper Display
 description: Serves e-paper optimised dashboard screenshots over HTTP
-version: 0.8.4
+version: 0.8.5
 slug: epaper_display
 init: false
 arch:
