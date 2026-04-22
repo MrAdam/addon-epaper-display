@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.7.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.6.0...v0.7.0) (2026-04-22)
+
+
+### Features
+
+* **capture:** add hide_toolbar option ([c67d7aa](https://github.com/MrAdam/addon-epaper-display/commit/c67d7aa57f2988abc385ad9688a95820f7ebb34a))
+* **capture:** add hide_toolbar option ([abbebfc](https://github.com/MrAdam/addon-epaper-display/commit/abbebfc16a8cd615251fa3fd8a42f81c69383a1d))
+* **examples:** add cron setup instructions and change default interval to 15 min ([38677cf](https://github.com/MrAdam/addon-epaper-display/commit/38677cf79dde31c17bb5622dfae03f8eb2917636))
+* **examples:** add cron setup instructions and change default interval to 15 minutes ([03e695c](https://github.com/MrAdam/addon-epaper-display/commit/03e695c5becb280c924cb8d7eaeb843741664a3a))
+
+
+### Bug Fixes
+
+* **capture:** remove theme config option ([1759c3f](https://github.com/MrAdam/addon-epaper-display/commit/1759c3f7622013ea4b59b097dcf829e9f406978c))
+* **capture:** remove theme config option ([043204b](https://github.com/MrAdam/addon-epaper-display/commit/043204bef0c472b56de0d8fa4eeb17cf38a9208b))
+* **ci:** use toml+jsonpath to update uv.lock version in release-please ([6d4fac5](https://github.com/MrAdam/addon-epaper-display/commit/6d4fac53d9993eb35106a45226cec66dea5c2dcd))
+* **ci:** use toml+jsonpath to update uv.lock version in release-please ([d6b384a](https://github.com/MrAdam/addon-epaper-display/commit/d6b384a44ae6411ed51aab0741cad5a4bc794c85))
+
 ## [0.6.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.5.2...v0.6.0) (2026-04-22)
 
 
