@@ -1,38 +1,84 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#   "gpiozero",
+#   "lgpio",
+#   "pillow",
+#   "waveshare-epaper",
+# ]
+# ///
 # Device:  Raspberry Pi Zero 2 W
 # Display: Waveshare 7.5" e-Paper HAT V2 (epd7in5_V2) — 800×480, black/white
 #
-# Prerequisites:
-#   sudo apt install python3-pillow
-#   git clone https://github.com/waveshare/e-Paper /opt/e-Paper
+# Prerequisites (one-time, on the Pi):
+#   sudo apt install -y swig liblgpio-dev
 #
 # Run on a schedule (e.g. every 5 minutes) with cron or a systemd timer to
 # match the refresh interval configured in the E-Paper Display add-on.
 import io
 import logging
-import os
-import sys
+import textwrap
 import urllib.request
 
-libdir = '/opt/e-Paper/RaspberryPi_JetsonNano/python/lib'
-if os.path.exists(libdir):
-    sys.path.append(libdir)
-
-from PIL import Image
-from waveshare_epd import epd7in5_V2
+import epaper
+from PIL import Image, ImageDraw, ImageFont
 
 logging.basicConfig(level=logging.INFO)
 
 ADDON_URL = 'http://10.4.0.100:3412/screenshot.png'
+TIMEOUT = 10  # seconds
+
+EPD_WIDTH = 800
+EPD_HEIGHT = 480
+
+PAD = 20
+
+
+def fetch_image() -> Image.Image:
+    with urllib.request.urlopen(ADDON_URL, timeout=TIMEOUT) as response:
+        return Image.open(io.BytesIO(response.read())).convert('1')
+
+
+def error_image(message: str) -> Image.Image:
+    img = Image.new('1', (EPD_WIDTH, EPD_HEIGHT), 255)
+    draw = ImageDraw.Draw(img)
+
+    font_title = ImageFont.load_default(size=64)
+    font_body  = ImageFont.load_default(size=32)
+
+    # Border
+    draw.rectangle([PAD, PAD, EPD_WIDTH - PAD - 1, EPD_HEIGHT - PAD - 1], outline=0, width=3)
+
+    # Title
+    title = "Display Error"
+    tw = draw.textlength(title, font=font_title)
+    draw.text(((EPD_WIDTH - tw) / 2, PAD + 20), title, font=font_title, fill=0)
+
+    # Separator
+    sep_y = PAD + 20 + 64 + 16
+    draw.line([(PAD * 2, sep_y), (EPD_WIDTH - PAD * 2, sep_y)], fill=0, width=2)
+
+    # Word-wrapped message
+    wrapped = textwrap.fill(str(message), width=42)
+    draw.text((EPD_WIDTH // 2, sep_y + 24), wrapped, font=font_body, fill=0, anchor='ma')
+
+    return img
+
 
 try:
-    epd = epd7in5_V2.EPD()
+    epd_module = epaper.epaper('epd7in5_V2')
+    epd = epd_module.EPD()
     epd.init()
     epd.Clear()
 
-    logging.info("Fetching screenshot from add-on...")
-    with urllib.request.urlopen(ADDON_URL) as response:
-        image = Image.open(io.BytesIO(response.read())).convert('1')
+    try:
+        logging.info("Fetching screenshot from add-on...")
+        image = fetch_image()
+        logging.info("Displaying image...")
+    except Exception as e:
+        logging.error("Failed to fetch screenshot: %s", e)
+        image = error_image(str(e))
 
     epd.display(epd.getbuffer(image))
     epd.sleep()
@@ -41,5 +87,5 @@ except IOError as e:
     logging.error(e)
 
 except KeyboardInterrupt:
-    epd7in5_V2.epdconfig.module_exit(cleanup=True)
+    epd_module.epdconfig.module_exit(cleanup=True)
     exit()
