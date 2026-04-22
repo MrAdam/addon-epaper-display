@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.4](https://github.com/MrAdam/addon-epaper-display/compare/v0.8.3...v0.8.4) (2026-04-22)
+
+
+### Bug Fixes
+
+* **docker:** wrap CMD with with-contenv so TZ env var is available ([#31](https://github.com/MrAdam/addon-epaper-display/issues/31)) ([c1276a4](https://github.com/MrAdam/addon-epaper-display/commit/c1276a4f2c0c9f092081b0e16a72fb6921bcf015))
+
 ## [0.8.3](https://github.com/MrAdam/addon-epaper-display/compare/v0.8.2...v0.8.3) (2026-04-22)
 
 
