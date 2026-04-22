@@ -1,46 +1,95 @@
 import json
 import time
+from urllib.parse import urlparse
 
 from playwright.sync_api import Page, sync_playwright
 
 
 def _wait_for_ready(page: Page) -> None:
-    # Wait for HA core data to be available (no-op on non-HA pages)
+    # Stage 1: wait for shadow DOM chain and lovelace panel to finish loading
     try:
         page.wait_for_function(
             """() => {
                 const ha = document.querySelector('home-assistant');
-                if (!ha) return true;
-                return !!(ha.hass && ha.hass.states && ha.hass.config);
+                if (!ha || !ha.shadowRoot) return false;
+                const main = ha.shadowRoot.querySelector('home-assistant-main');
+                if (!main || !main.shadowRoot) return false;
+                const resolver = main.shadowRoot.querySelector('partial-panel-resolver');
+                if (!resolver || resolver._loading) return false;
+                const panel = resolver.children[0];
+                if (!panel) return false;
+                if (panel._panelState !== undefined) return panel._panelState === 'loaded';
+                return !panel._loading;
+            }""",
+            timeout=30000,
+        )
+    except Exception:
+        pass
+
+    # Stage 2: wait for hass data (states, connection, config) to be ready
+    try:
+        page.wait_for_function(
+            """() => {
+                const ha = document.querySelector('home-assistant');
+                if (!ha) return false;
+                const h = ha.hass;
+                if (!h || !h.states || Object.keys(h.states).length === 0) return false;
+                if (h.connected === false) return false;
+                if (h.config && h.config.state !== 'RUNNING') return false;
+                return true;
+            }""",
+            timeout=30000,
+        )
+    except Exception:
+        pass
+
+    # Stage 3: wait for all loading indicators to clear, walking shadow roots
+    try:
+        page.wait_for_function(
+            """() => {
+                if (document.getElementById('ha-launch-screen')) return false;
+                const selectors = [
+                    'ha-circular-progress', 'hass-loading-screen',
+                    '.loading', '.spinner', '[loading]', 'hui-card-preview',
+                ];
+                function isVisible(el) {
+                    const s = window.getComputedStyle(el);
+                    return s.display !== 'none' && s.visibility !== 'hidden';
+                }
+                function hasLoading(root) {
+                    for (const sel of selectors)
+                        for (const el of root.querySelectorAll(sel))
+                            if (isVisible(el)) return true;
+                    for (const el of root.querySelectorAll('*'))
+                        if (el.shadowRoot && hasLoading(el.shadowRoot)) return true;
+                    return false;
+                }
+                return !hasLoading(document);
             }""",
             timeout=15000,
         )
     except Exception:
         pass
 
-    # Wait for loading indicators to clear
+    # Stage 4: dismiss toasts via shadow DOM path
     try:
-        page.wait_for_function(
-            """() => {
-                const els = document.querySelectorAll(
-                    'ha-circular-progress, hass-loading-screen, .loading-screen'
-                );
-                return [...els].every(el => getComputedStyle(el).display === 'none');
-            }""",
-            timeout=10000,
-        )
+        page.evaluate("""() => {
+            const ha = document.querySelector('home-assistant');
+            if (!ha || !ha.shadowRoot) return;
+            const nm = ha.shadowRoot.querySelector('notification-manager');
+            if (!nm || !nm.shadowRoot) return;
+            nm.shadowRoot.querySelectorAll('ha-toast').forEach(t => t.close && t.close('dismiss'));
+        }""")
     except Exception:
         pass
 
-    # Dismiss any visible toast notifications
-    page.evaluate(
-        "document.querySelectorAll('ha-toast').forEach(t => t.close && t.close())"
-    )
-
-    # Flush the rendering pipeline with a double requestAnimationFrame
-    page.evaluate(
-        "() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))"
-    )
+    # Stage 5: wait for paint to settle (double rAF)
+    try:
+        page.evaluate(
+            "() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))"
+        )
+    except Exception:
+        pass
 
 
 def take_screenshot(
@@ -61,6 +110,10 @@ def take_screenshot(
         )
         context = browser.new_context(viewport={"width": width, "height": height})
 
+        parsed = urlparse(url)
+        hass_url = f"{parsed.scheme}://{parsed.netloc}"
+        client_id = f"{hass_url}/"
+
         init_items = {}
         if token:
             init_items["hassTokens"] = json.dumps({
@@ -69,6 +122,8 @@ def take_screenshot(
                 "expires_in": 1800,
                 "refresh_token": "",
                 "expires": (time.time() + 365 * 24 * 3600) * 1000,
+                "hassUrl": hass_url,
+                "clientId": client_id,
             })
         if hide_sidebar:
             init_items["dockedSidebar"] = "always_hidden"
@@ -82,7 +137,7 @@ def take_screenshot(
             context.add_init_script(sets)
 
         page = context.new_page()
-        page.goto(url, wait_until="load")
+        page.goto(url, wait_until="networkidle")
         if zoom != 1.0:
             page.evaluate(f"document.body.style.zoom = '{zoom}'")
         _wait_for_ready(page)
