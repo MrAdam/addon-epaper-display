@@ -68,6 +68,26 @@ docs: update README with hide_sidebar option
 
 Client scripts live in `examples/` and are named `{device}_{display}.py`, e.g. `raspberry-pi_waveshare-epd7in5-v2.py`. Each file must include a header comment stating the device, display model, resolution, and prerequisites. Scripts should fetch from `ADDON_URL` and handle `IOError` and `KeyboardInterrupt` — see the existing example as a template.
 
+## Local testing
+
+`take_screenshot()` can be tested locally without Docker using the project's own venv:
+
+```python
+# test_capture.py — do not commit; delete after use (may contain secrets)
+import subprocess
+from src.epaper_display.capture import take_screenshot
+
+URL   = "http://10.4.0.100:8123/e-ink-dashboard/0"
+TOKEN = "<long-lived HA token>"  # Settings → Profile → Security
+
+data = take_screenshot(url=URL, token=TOKEN, width=800, height=480)
+with open("/tmp/test_capture.png", "wb") as f:
+    f.write(data)
+subprocess.run(["open", "/tmp/test_capture.png"])
+```
+
+Run with `uv run python test_capture.py`. The result opens automatically. Always delete the file before committing — it contains a real token.
+
 ## Conventions
 
 - Always work on a feature branch — never commit directly to `main`
