@@ -21,6 +21,7 @@ options:
   normalize: true
   gamma_correction: true
   zoom: 1.0
+  chromium_flags: "--hide-scrollbars --disable-notifications --disable-extensions --disable-sync --disable-background-timer-throttling"
 schema:
   url: url
   token: password
@@ -32,3 +33,4 @@ schema:
   normalize: bool
   gamma_correction: bool
   zoom: float(0.25,4.0)
+  chromium_flags: str

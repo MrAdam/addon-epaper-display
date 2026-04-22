@@ -72,11 +72,12 @@ def load_options() -> dict:
         return json.load(f)
 
 
-def take_screenshot(url: str, token: str, width: int, height: int, zoom: float = 1.0) -> bytes:
+def take_screenshot(url: str, token: str, width: int, height: int, zoom: float = 1.0, chromium_flags: str = "") -> bytes:
+    extra_args = chromium_flags.split() if chromium_flags else []
     with sync_playwright() as p:
         browser = p.chromium.launch(
             headless=True,
-            args=["--no-sandbox", "--disable-dev-shm-usage"],
+            args=["--no-sandbox", "--disable-dev-shm-usage"] + extra_args,
         )
         context = browser.new_context(viewport={"width": width, "height": height})
         page = context.new_page()
@@ -126,6 +127,7 @@ def refresh_loop() -> None:
                 options.get("width", 800),
                 options.get("height", 480),
                 options.get("zoom", 1.0),
+                options.get("chromium_flags", ""),
             )
             data = process_image(raw, options)
             with _lock:
