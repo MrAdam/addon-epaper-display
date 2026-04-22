@@ -19,7 +19,7 @@ A headless Chromium browser captures the configured dashboard URL on a cron sche
 | `url` | URL | — | Dashboard URL to screenshot |
 | `token` | password | — | HA long-lived access token (Settings → Profile → Security) |
 | `direct` | bool | `false` | Capture a fresh screenshot on every request instead of serving a cached one |
-| `cron` | string | `*/5 * * * *` | Capture schedule in cron syntax (ignored when `direct` is enabled) |
+| `cron` | string | `*/15 * * * *` | Capture schedule in cron syntax (ignored when `direct` is enabled) |
 | `width` | int | `800` | Viewport width in pixels |
 | `height` | int | `480` | Viewport height in pixels |
 | `zoom` | float | `1.0` | Browser zoom level (0.25–4.0) |

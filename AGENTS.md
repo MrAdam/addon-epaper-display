@@ -90,7 +90,7 @@ Minimal `options.json`:
 {
   "url": "http://10.4.0.100:8123/e-ink-dashboard/0",
   "token": "<long-lived HA token>",
-  "cron": "*/5 * * * *",
+  "cron": "*/15 * * * *",
   "width": 800,
   "height": 480,
   "direct": true
