@@ -1,0 +1,24 @@
+name: E-Paper Display
+description: Serves e-paper optimised dashboard screenshots over HTTP
+version: 0.1.0
+slug: epaper_display
+init: false
+arch:
+  - amd64
+  - aarch64
+ports:
+  8099/tcp: 8099
+ports_description:
+  8099/tcp: Screenshot HTTP endpoint
+options:
+  url: "http://homeassistant.local:8123/lovelace/0"
+  token: ""
+  refresh_interval: 300
+  width: 800
+  height: 480
+schema:
+  url: url
+  token: password
+  refresh_interval: int(30,86400)
+  width: int(100,3840)
+  height: int(100,2160)
