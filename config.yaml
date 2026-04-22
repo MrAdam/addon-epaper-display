@@ -17,6 +17,9 @@ options:
   cron: "*/5 * * * *"
   width: 800
   height: 480
+  dithering: "floyd-steinberg"
+  normalize: true
+  gamma_correction: true
 schema:
   url: url
   token: password
@@ -24,3 +27,6 @@ schema:
   cron: str
   width: int(100,3840)
   height: int(100,2160)
+  dithering: list(floyd-steinberg|ordered|none)
+  normalize: bool
+  gamma_correction: bool
