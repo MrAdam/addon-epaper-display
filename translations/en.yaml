@@ -35,6 +35,12 @@ configuration:
   hide_sidebar:
     name: Hide sidebar
     description: Hide the Home Assistant sidebar in the screenshot.
+  theme:
+    name: Theme
+    description: >-
+      Name of a Home Assistant theme to apply to the screenshot. Leave blank
+      to use the default theme. The user's own theme setting is unaffected —
+      this only applies to the headless browser session.
   zoom:
     name: Zoom level
     description: Browser zoom factor (1.0 = 100 %). Increase to scale up UI elements.
