@@ -23,6 +23,11 @@ A headless Chromium browser captures the configured dashboard URL on a cron sche
 | `width` | int | `800` | Viewport width in pixels |
 | `height` | int | `480` | Viewport height in pixels |
 | `zoom` | float | `1.0` | Browser zoom level (0.25–4.0) |
+| `chromium_flags` | string | see below | Space-separated Chromium launch flags |
+
+Default `chromium_flags`: `--hide-scrollbars --disable-notifications --disable-extensions --disable-sync --disable-background-timer-throttling`
+
+`--no-sandbox` and `--disable-dev-shm-usage` are always applied and cannot be overridden — they are required to run Chromium inside Docker.
 
 ### Image processing
 
