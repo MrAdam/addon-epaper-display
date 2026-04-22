@@ -40,6 +40,12 @@ Order matters: **gamma correction → greyscale → normalize → dither**
 
 All options are read fresh from `/data/options.json` on every capture. Changes take effect after the current sleep/request cycle ends — no restart needed.
 
+## Releases and versioning
+
+Releases are managed by [release-please](https://github.com/googleapis/release-please). Never manually bump the version in `pyproject.toml` or `config.yaml`, and never create tags by hand.
+
+When `feat` or `fix` commits land on `main`, release-please opens a PR that bumps both files and generates `CHANGELOG.md`. Merging that PR creates the GitHub release and tag automatically.
+
 ## Commit messages
 
 Use [Conventional Commits](https://www.conventionalcommits.org/):
