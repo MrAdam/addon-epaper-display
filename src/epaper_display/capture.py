@@ -69,6 +69,30 @@ def _wait_for_ready(page: Page) -> None:
         pass
 
     try:
+        page.wait_for_function(
+            """() => {
+                function findAll(root, sel) {
+                    const found = [...root.querySelectorAll(sel)];
+                    for (const el of root.querySelectorAll('*'))
+                        if (el.shadowRoot) found.push(...findAll(el.shadowRoot, sel));
+                    return found;
+                }
+                const cards = findAll(document, 'hui-markdown-card');
+                if (cards.length === 0) return true;
+                return cards.every(c => {
+                    if (!c.shadowRoot) return false;
+                    const content = c.shadowRoot.querySelector(
+                        'ha-markdown-element, .content, .card-content'
+                    );
+                    return content && content.textContent.trim().length > 0;
+                });
+            }""",
+            timeout=15000,
+        )
+    except Exception:
+        pass
+
+    try:
         page.evaluate("""() => {
             const ha = document.querySelector('home-assistant');
             if (!ha || !ha.shadowRoot) return;
