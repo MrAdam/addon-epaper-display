@@ -113,8 +113,21 @@ def _wait_for_ready(page: Page) -> None:
 
     # Catch auth failures early rather than silently serving a login/error screenshot
     title = page.title().lower()
-    if any(kw in title for kw in ("log in", "login", "sign in", "error", "403", "404", "unable to connect")):
-        raise RuntimeError(f"Page title '{page.title()}' suggests auth failure or error — aborting capture")
+    if any(
+        kw in title
+        for kw in (
+            "log in",
+            "login",
+            "sign in",
+            "error",
+            "403",
+            "404",
+            "unable to connect",
+        )
+    ):
+        raise RuntimeError(
+            f"Page title '{page.title()}' suggests auth failure or error — aborting capture"
+        )
 
 
 def take_screenshot(
@@ -132,7 +145,7 @@ def take_screenshot(
     with sync_playwright() as p:
         browser = p.chromium.launch(
             headless=True,
-            args=["--no-sandbox", "--disable-dev-shm-usage"] + extra_args,
+            args=["--no-sandbox", "--disable-dev-shm-usage", *extra_args],
         )
         toolbar_height = round(56 * zoom) if hide_toolbar else 0
         context = browser.new_context(
@@ -146,15 +159,17 @@ def take_screenshot(
 
         init_items = {}
         if token:
-            init_items["hassTokens"] = json.dumps({
-                "access_token": token,
-                "token_type": "Bearer",
-                "expires_in": 1800,
-                "refresh_token": "",
-                "expires": (time.time() + 365 * 24 * 3600) * 1000,
-                "hassUrl": hass_url,
-                "clientId": client_id,
-            })
+            init_items["hassTokens"] = json.dumps(
+                {
+                    "access_token": token,
+                    "token_type": "Bearer",
+                    "expires_in": 1800,
+                    "refresh_token": "",
+                    "expires": (time.time() + 365 * 24 * 3600) * 1000,
+                    "hassUrl": hass_url,
+                    "clientId": client_id,
+                }
+            )
         if hide_sidebar:
             init_items["dockedSidebar"] = "always_hidden"
         if init_items:
@@ -169,7 +184,11 @@ def take_screenshot(
         if zoom != 1.0:
             page.evaluate(f"document.body.style.zoom = '{zoom}'")
         _wait_for_ready(page)
-        clip = {"x": 0, "y": toolbar_height, "width": width, "height": height} if hide_toolbar else None
+        clip = (
+            {"x": 0, "y": toolbar_height, "width": width, "height": height}
+            if hide_toolbar
+            else None
+        )
         data = page.screenshot(clip=clip)
         browser.close()
 

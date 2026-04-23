@@ -53,7 +53,9 @@ def refresh_loop() -> None:
             log.exception("Screenshot failed")
 
         cron_expr = options.get("cron", "*/15 * * * *")
-        next_run = croniter(cron_expr, datetime.datetime.now()).get_next(datetime.datetime)
+        next_run = croniter(cron_expr, datetime.datetime.now()).get_next(
+            datetime.datetime
+        )
         sleep_secs = (next_run - datetime.datetime.now()).total_seconds()
         log.info("Next capture at %s", next_run.strftime("%H:%M:%S"))
         time.sleep(max(0, sleep_secs))
