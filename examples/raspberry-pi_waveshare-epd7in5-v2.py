@@ -30,7 +30,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 logging.basicConfig(level=logging.INFO)
 
-ADDON_URL = 'http://10.4.0.100:3412/screenshot.png'
+ADDON_URL = "http://10.4.0.100:3412/screenshot.png"
 TIMEOUT = 10  # seconds
 
 EPD_WIDTH = 800
@@ -41,18 +41,20 @@ PAD = 20
 
 def fetch_image() -> Image.Image:
     with urllib.request.urlopen(ADDON_URL, timeout=TIMEOUT) as response:
-        return Image.open(io.BytesIO(response.read())).convert('1')
+        return Image.open(io.BytesIO(response.read())).convert("1")
 
 
 def error_image(message: str) -> Image.Image:
-    img = Image.new('1', (EPD_WIDTH, EPD_HEIGHT), 255)
+    img = Image.new("1", (EPD_WIDTH, EPD_HEIGHT), 255)
     draw = ImageDraw.Draw(img)
 
     font_title = ImageFont.load_default(size=64)
-    font_body  = ImageFont.load_default(size=32)
+    font_body = ImageFont.load_default(size=32)
 
     # Border
-    draw.rectangle([PAD, PAD, EPD_WIDTH - PAD - 1, EPD_HEIGHT - PAD - 1], outline=0, width=3)
+    draw.rectangle(
+        [PAD, PAD, EPD_WIDTH - PAD - 1, EPD_HEIGHT - PAD - 1], outline=0, width=3
+    )
 
     # Title
     title = "Display Error"
@@ -65,13 +67,15 @@ def error_image(message: str) -> Image.Image:
 
     # Word-wrapped message
     wrapped = textwrap.fill(str(message), width=42)
-    draw.text((EPD_WIDTH // 2, sep_y + 24), wrapped, font=font_body, fill=0, anchor='ma')
+    draw.text(
+        (EPD_WIDTH // 2, sep_y + 24), wrapped, font=font_body, fill=0, anchor="ma"
+    )
 
     return img
 
 
 try:
-    epd_module = epaper.epaper('epd7in5_V2')
+    epd_module = epaper.epaper("epd7in5_V2")
     epd = epd_module.EPD()
     epd.init()
     epd.Clear()
@@ -87,7 +91,7 @@ try:
     epd.display(epd.getbuffer(image))
     epd.sleep()
 
-except IOError as e:
+except OSError as e:
     logging.error(e)
 
 except KeyboardInterrupt:
