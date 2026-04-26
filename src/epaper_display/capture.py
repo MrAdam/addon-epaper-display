@@ -77,6 +77,30 @@ def _wait_for_ready(page: Page) -> None:
                         if (el.shadowRoot) found.push(...findAll(el.shadowRoot, sel));
                     return found;
                 }
+                const cards = findAll(document, 'calendar-card-pro');
+                if (cards.length === 0) return true;
+                return cards.every(c => {
+                    if (!c.shadowRoot) return true;
+                    const loader = c.shadowRoot.querySelector('loading-indicator');
+                    if (!loader) return true;
+                    const s = window.getComputedStyle(loader);
+                    return s.display === 'none' || s.visibility === 'hidden';
+                });
+            }""",
+            timeout=15000,
+        )
+    except Exception:
+        pass
+
+    try:
+        page.wait_for_function(
+            """() => {
+                function findAll(root, sel) {
+                    const found = [...root.querySelectorAll(sel)];
+                    for (const el of root.querySelectorAll('*'))
+                        if (el.shadowRoot) found.push(...findAll(el.shadowRoot, sel));
+                    return found;
+                }
                 const cards = findAll(document, 'hui-markdown-card');
                 if (cards.length === 0) return true;
                 return cards.every(c => {
