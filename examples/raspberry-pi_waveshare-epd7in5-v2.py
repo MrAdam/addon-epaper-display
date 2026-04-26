@@ -23,6 +23,7 @@
 import io
 import logging
 import textwrap
+import urllib.error
 import urllib.request
 
 import epaper
@@ -31,7 +32,7 @@ from PIL import Image, ImageDraw, ImageFont
 logging.basicConfig(level=logging.INFO)
 
 ADDON_URL = "http://10.4.0.100:3412/screenshot.png"
-TIMEOUT = 10  # seconds
+TIMEOUT = 60  # seconds
 
 EPD_WIDTH = 800
 EPD_HEIGHT = 480
@@ -84,6 +85,13 @@ try:
         logging.info("Fetching screenshot from add-on...")
         image = fetch_image()
         logging.info("Displaying image...")
+    except urllib.error.HTTPError as e:
+        body = e.read().decode("utf-8", errors="replace")[:500]
+        logging.error("Add-on returned HTTP %s: %s — body: %s", e.code, e.reason, body)
+        image = error_image(f"HTTP {e.code}: {e.reason}")
+    except TimeoutError as e:
+        logging.error("Request timed out after %ss: %s", TIMEOUT, e)
+        image = error_image(f"Timed out after {TIMEOUT}s")
     except Exception as e:
         logging.error("Failed to fetch screenshot: %s", e)
         image = error_image(str(e))
