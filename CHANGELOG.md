@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.9.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.8.5...v0.9.0) (2026-04-26)
+
+
+### Features
+
+* **ci:** add ruff linting and formatting ([#35](https://github.com/MrAdam/addon-epaper-display/issues/35)) ([07046ea](https://github.com/MrAdam/addon-epaper-display/commit/07046eaa982085710edbb1584a1b56ae71322338))
+* **ci:** add ty static type checking ([#37](https://github.com/MrAdam/addon-epaper-display/issues/37)) ([2f5b340](https://github.com/MrAdam/addon-epaper-display/commit/2f5b3407aac13f26cb83383cfbd90657d3244f77))
+
+
+### Bug Fixes
+
+* **capture:** wait for calendar-card-pro loading indicator to clear ([#38](https://github.com/MrAdam/addon-epaper-display/issues/38)) ([5a6bb0f](https://github.com/MrAdam/addon-epaper-display/commit/5a6bb0fa23226642933eba82effe5299cf1d9f68))
+
 ## [0.8.5](https://github.com/MrAdam/addon-epaper-display/compare/v0.8.4...v0.8.5) (2026-04-22)
 
 
