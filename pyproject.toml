@@ -23,7 +23,7 @@ dev = [
 ]
 
 [tool.ty.analysis]
-replace-imports-with-any = ["playwright.**", "croniter.**", "epaper.**"]
+replace-imports-with-any = ["croniter.**", "epaper.**"]
 
 [tool.ruff]
 target-version = "py311"
