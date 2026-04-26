@@ -2,7 +2,7 @@ import json
 import time
 from urllib.parse import urlparse
 
-from playwright.sync_api import Page, sync_playwright
+from playwright.sync_api import FloatRect, Page, sync_playwright
 
 
 def _wait_for_ready(page: Page) -> None:
@@ -130,7 +130,6 @@ def _wait_for_ready(page: Page) -> None:
     try:
         page.evaluate(
             "() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))",
-            timeout=2000,
         )
     except Exception:
         pass
@@ -209,7 +208,12 @@ def take_screenshot(
             page.evaluate(f"document.body.style.zoom = '{zoom}'")
         _wait_for_ready(page)
         clip = (
-            {"x": 0, "y": toolbar_height, "width": width, "height": height}
+            FloatRect(
+                x=0.0,
+                y=float(toolbar_height),
+                width=float(width),
+                height=float(height),
+            )
             if hide_toolbar
             else None
         )

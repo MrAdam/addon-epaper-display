@@ -91,8 +91,8 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(data)
 
-    def log_message(self, fmt, *args) -> None:
-        log.info("HTTP " + fmt, *args)
+    def log_message(self, format, *args) -> None:
+        log.info("HTTP " + format, *args)
 
 
 if __name__ == "__main__":
