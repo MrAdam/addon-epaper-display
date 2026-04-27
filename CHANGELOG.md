@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.9.0...v0.10.0) (2026-04-27)
+
+
+### Features
+
+* **config:** change default cron to hourly schedule ([#41](https://github.com/MrAdam/addon-epaper-display/issues/41)) ([3b7bab4](https://github.com/MrAdam/addon-epaper-display/commit/3b7bab40f68eb6dbb7acffc85d9d1e0e967531f8))
+* **example:** increase timeout and add detailed error logging ([#39](https://github.com/MrAdam/addon-epaper-display/issues/39)) ([1e79e3c](https://github.com/MrAdam/addon-epaper-display/commit/1e79e3c90b305d79f4a502e1198aaaf83d97d5a0))
+
 ## [0.9.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.8.5...v0.9.0) (2026-04-26)
 
 
