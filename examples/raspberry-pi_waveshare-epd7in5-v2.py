@@ -17,9 +17,10 @@
 # Run on a schedule with cron to match the refresh interval in the add-on config.
 # Edit your crontab with: crontab -e
 #
-#   */15 * * * * $HOME/.local/bin/uv run $HOME/epaper/raspberry-pi_waveshare-epd7in5-v2.py >> $HOME/epaper/display.log 2>&1
+#   0 * * * * $HOME/.local/bin/uv run $HOME/epaper/raspberry-pi_waveshare-epd7in5-v2.py >> $HOME/epaper/display.log 2>&1
 #
 # Cron expands $HOME so no hardcoded path is needed. Adjust the interval to match your setup.
+# Pair with add-on cron "55 * * * *" so the screenshot is ready ~5 minutes before each fetch.
 import io
 import logging
 import textwrap

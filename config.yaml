@@ -14,7 +14,7 @@ options:
   url: http://homeassistant.local:8123/lovelace/0
   token: ''
   direct: false
-  cron: '*/15 * * * *'
+  cron: '55 * * * *'
   width: 800
   height: 480
   dithering: floyd-steinberg

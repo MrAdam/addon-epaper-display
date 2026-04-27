@@ -14,7 +14,7 @@ configuration:
     name: Capture schedule
     description: >-
       Cron expression controlling how often the screenshot is refreshed
-      (e.g. "*/15 * * * *" for every 15 minutes).
+      (e.g. "55 * * * *" to capture at :55 each hour, ready for an hourly fetch at :00).
   width:
     name: Image width
     description: Width of the screenshot in pixels.
