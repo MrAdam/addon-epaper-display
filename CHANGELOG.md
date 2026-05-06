@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.1](https://github.com/MrAdam/addon-epaper-display/compare/v0.10.0...v0.10.1) (2026-05-06)
+
+
+### Bug Fixes
+
+* **capture:** wait for calendar-card-pro text loading and fix broken selector ([#50](https://github.com/MrAdam/addon-epaper-display/issues/50)) ([9692172](https://github.com/MrAdam/addon-epaper-display/commit/9692172219c4f43935e9ec18ccb654bf39fd2844))
+* **deps:** switch dependabot ecosystem from pip to uv ([#52](https://github.com/MrAdam/addon-epaper-display/issues/52)) ([d03967e](https://github.com/MrAdam/addon-epaper-display/commit/d03967e064fc457cfce73880d12cdd46bff21af8))
+
 ## [0.10.0](https://github.com/MrAdam/addon-epaper-display/compare/v0.9.0...v0.10.0) (2026-04-27)
 
 
