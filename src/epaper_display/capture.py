@@ -81,9 +81,14 @@ def _wait_for_ready(page: Page) -> None:
                 if (cards.length === 0) return true;
                 return cards.every(c => {
                     if (!c.shadowRoot) return true;
-                    const loader = c.shadowRoot.querySelector('loading-indicator');
-                    if (!loader) return true;
-                    const s = window.getComputedStyle(loader);
+                    const textLoader = c.shadowRoot.querySelector('.loading');
+                    if (textLoader) {
+                        const s = window.getComputedStyle(textLoader);
+                        if (s.display !== 'none' && s.visibility !== 'hidden') return false;
+                    }
+                    const spinner = c.shadowRoot.querySelector('.loading-indicator');
+                    if (!spinner) return true;
+                    const s = window.getComputedStyle(spinner);
                     return s.display === 'none' || s.visibility === 'hidden';
                 });
             }""",
