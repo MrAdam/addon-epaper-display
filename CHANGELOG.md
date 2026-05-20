@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.2](https://github.com/MrAdam/addon-epaper-display/compare/v0.10.1...v0.10.2) (2026-05-18)
+
+
+### Bug Fixes
+
+* **capture:** fix calendar-card-pro loading text still appearing in screenshots ([#59](https://github.com/MrAdam/addon-epaper-display/issues/59)) ([5fb2f60](https://github.com/MrAdam/addon-epaper-display/commit/5fb2f60bc8a26f0648ca3f869bbf0ca129b13b83))
+
 ## [0.10.1](https://github.com/MrAdam/addon-epaper-display/compare/v0.10.0...v0.10.1) (2026-05-06)
 
 
