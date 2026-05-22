@@ -1,5 +1,7 @@
 # E-Paper Display — Home Assistant Add-on
 
+> This project is built with AI assistance. Free time is precious, and so is time with my family.
+
 A Home Assistant add-on that renders a dashboard screenshot and serves it as a PNG over HTTP, optimised for e-paper displays.
 
 A headless Chromium browser captures the configured dashboard URL on a cron schedule (or on every request in direct mode), applies e-ink optimised image processing, and exposes the result at `GET /screenshot.png` on port 3412.
