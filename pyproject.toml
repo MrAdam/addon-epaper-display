@@ -19,7 +19,7 @@ packages = ["src/epaper_display"]
 [dependency-groups]
 dev = [
     "ruff>=0.15.12",
-    "ty==0.0.34",
+    "ty==0.0.39",
     "types-croniter",
 ]
 
