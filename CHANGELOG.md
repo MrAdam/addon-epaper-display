@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.10.3](https://github.com/MrAdam/addon-epaper-display/compare/v0.10.2...v0.10.3) (2026-05-25)
+
+
+### Bug Fixes
+
+* **capture:** prevent calendar-card-pro wait from passing before shadow DOM renders ([#68](https://github.com/MrAdam/addon-epaper-display/issues/68)) ([27820f4](https://github.com/MrAdam/addon-epaper-display/commit/27820f4027637690d0103e9fe04300a0e0377466))
+
+
+### Documentation
+
+* add AI assistance disclaimer to README ([#66](https://github.com/MrAdam/addon-epaper-display/issues/66)) ([2a6fb45](https://github.com/MrAdam/addon-epaper-display/commit/2a6fb4562997f09085dcd6470de2690c79943f15))
+
 ## [0.10.2](https://github.com/MrAdam/addon-epaper-display/compare/v0.10.1...v0.10.2) (2026-05-18)
 
 
