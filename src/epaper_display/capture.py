@@ -84,13 +84,9 @@ def _wait_for_ready(page: Page) -> None:
                 const cards = findAll(document, 'calendar-card-pro');
                 if (cards.length === 0) return true;
                 return cards.every(c => {
-                    if (!c.shadowRoot) return true;
+                    if (!c.shadowRoot) return false;
                     const loaders = findAll(c.shadowRoot, '.loading, .loading-indicator');
                     if (loaders.some(el => isVisible(el))) return false;
-                    // Defend against race: if neither loader is visible but the card
-                    // has rendered nothing at all, keep waiting — Lit may not have
-                    // rendered yet.  When loaded, the card always has a header-container.
-                    if (!c.shadowRoot.querySelector('.header-container')) return false;
                     return true;
                 });
             }""",
